@@ -1,0 +1,22 @@
+<nav class="navbar navbar-primary navbar-expand-sm bg-primary">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a routerLink="/" class="navbar-brand"><span><img class="img-responsive"
+        style="max-height:42px;max-width:42px;" src="../../../assets/fb_logo.png"/></span></a>
+    </div>
+    <div class="" id="">
+      <ul class="navbar-nav nav">
+        <form [formGroup]="searchForm" class="form-inline" ngSubmit="searchFor($event)">
+          
+        </form>
+        <li routerLinkActive="active" class="nav-item"><a routerLink="/movies" class="nav-link">Movies</a></li>
+      </ul>
+    </div>
+    <div class="float-right">
+      <ul class="navbar-nav nav mr-3">
+        <li routerLinkActive="active" class="nav-item"><a routerLink="/movies/purchased"
+          class="nav-link">Purchased movies</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
