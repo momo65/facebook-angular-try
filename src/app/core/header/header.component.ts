@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormGroup,FormControl,Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,9 +10,20 @@ import {FormGroup} from '@angular/forms';
 export class HeaderComponent implements OnInit {
   searchForm:FormGroup;
 
-  constructor() { }
+  constructor(private router:Router) { }
+
+  searchEntity(){
+    this.router.navigate(['profile',this.searchForm.value['searchEntityLabel']]);
+  }
+
+  private initForm(){
+    this.searchForm=new FormGroup({
+      'searchEntityLabel':new FormControl('',Validators.required)
+    });
+  }
 
   ngOnInit() {
+    this.initForm();
   }
 
 }
