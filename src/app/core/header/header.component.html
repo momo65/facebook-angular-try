@@ -6,8 +6,17 @@
     </div>
     <div class="" id="">
       <ul class="navbar-nav nav">
-        <form [formGroup]="searchForm" class="form-inline" ngSubmit="searchFor($event)">
-          
+        <form [formGroup]="searchForm" class="form-inline" (ngSubmit)="searchFor($event)">
+          <mat-form-field>
+            <input type="text" matInput [formControlName]="'searchElement'" [matAutocomplete]="auto"
+              (focus)="loadSearches()" (change)="loadSuggestions()"/>
+          </mat-form-field>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of options" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+          <button mat-button><i class="material-icons">search</i></button>
         </form>
         <li routerLinkActive="active" class="nav-item"><a routerLink="/movies" class="nav-link">Movies</a></li>
       </ul>
