@@ -1,5 +1,5 @@
 export class Search{
-  profileId:string;
+  profileId:string;//whose research is this
   date:Date;//mois et année en haut, si mois pas de search on mentionne celà, il faut date et heure (hh:mm)
   researchedTerm:string;
   visited:boolean;

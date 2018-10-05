@@ -18,6 +18,10 @@ export function coreReducer(state=initialState,action:coreActions.CoreActions){
       return{
         ...state,searches:[...action.payload]
       };
+    case coreActions.LOAD_SUGGESTIONS:
+      return{
+        ...state,suggestions:[...action.payload]
+      };
     default:
       return state;
   }
