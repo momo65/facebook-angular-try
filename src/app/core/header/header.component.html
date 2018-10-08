@@ -8,12 +8,17 @@
       <ul class="navbar-nav nav">
         <form [formGroup]="searchForm" class="form-inline" (ngSubmit)="searchFor($event)">
           <mat-form-field>
-            <input type="text" matInput [formControlName]="'searchElement'" [matAutocomplete]="auto"
-              (focus)="loadSearches()" (change)="loadSuggestions()"/>
+            <input type="text" matInput [formControlName]="'searchTerm'" [matAutocomplete]="auto"
+              (focus)="loadSearches()" (change)="loadSuggestions()" (blur)="unloadAutocomplete()"/>
           </mat-form-field>
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of options" [value]="option">
-              {{ option }}
+          <mat-autocomplete #auto="matAutocomplete" *ngIf="type==='searches'">
+            <mat-option *ngFor="let search of (coreState|async).searches" [value]="search">
+              {{ search }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-autocomplete #auto="matAutocomplete" *ngIf="type==='suggestions'">
+            <mat-option *ngFor="let suggestion of (coreState|async).suggestions" [value]="suggestion">
+              {{ suggestion }}
             </mat-option>
           </mat-autocomplete>
           <button mat-button><i class="material-icons">search</i></button>

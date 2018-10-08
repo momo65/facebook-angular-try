@@ -4,7 +4,7 @@ import {Suggestion} from '../../shared/suggestion.model';
 
 export interface State{
   searches:Search[],
-  suggestions:Suggestion[],
+  suggestions:Suggestion[]
 }
 
 const initialState:State={

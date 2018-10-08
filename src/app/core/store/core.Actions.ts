@@ -1,6 +1,7 @@
 import {Action} from '@ngrx/store';
 
 import {Search} from '../../shared/search.model';
+import {Suggestion} from '../../shared/suggestion.model';
 
 export const LOAD_SEARCHES="LOAD_SEARCHES";//load them into the state
 export const DO_LOAD_SEARCHES="DO_LOAD_SEARCHES";//load them from firebase
@@ -26,7 +27,7 @@ export class LoadSuggestions implements Action{
 }
 
 export class DoLoadSuggestions implements Action{
-  readonly type=DO_LOAD_Suggestions;
+  readonly type=DO_LOAD_SUGGESTIONS;
 
   constructor(public payload:string){}//the searched element's value
 }
