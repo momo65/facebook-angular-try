@@ -26,7 +26,7 @@ export class CoreEffects{
       //add token with AuthInterceptor
     }
   ),map(
-    (searches)=>{
+    (searches:Search[])=>{
       console.log(searches);
       /*for(let recipe of recipes){
         if(!recipe['ingredients']){

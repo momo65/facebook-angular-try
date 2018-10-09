@@ -1,11 +1,11 @@
 export class Suggestion{
   profileId:string;//need name of the element & link to it ( its id)
-  label:string;
+  word:string;
   type:string;
 
-  constructor(pI:string,l:string,t:string){
+  constructor(pI:string,w:string,t:string){
     this.profileId=pI;
-    this.label=l;
+    this.word=w;
     this.type=t;
   }
 }

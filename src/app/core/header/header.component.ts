@@ -36,12 +36,11 @@ export class HeaderComponent implements OnInit {
   }
 
   loadSearches(){
-    this.store.select('auth').pipe(take(1)).subscribe(
-      (authState)=>{
-        this.store.dispatch(new coreActions.DoLoadSearches(authState.id));
-        this.type="searches";
-      }
-    );
+    if(this.searchForm.value.searchTerm!="" && this.searchForm.value.searchTerm!=null){
+      this.type="suggestions";
+    }else{
+      this.type="searches";
+    }
   }
 
   searchFor(){
@@ -55,11 +54,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.store.select('core').pipe(take(1)).subscribe(
+    this.store.select('core').pipe(take(1)).subscribe(
       (coreState)=>{
         console.log(coreState.searches);
       }
-    );*/
+    );
     this.initForm();
     this.coreState$=this.store.select('core');
   }

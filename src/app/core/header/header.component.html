@@ -12,13 +12,13 @@
               (focus)="loadSearches()" (change)="loadSuggestions()" (blur)="unloadAutocomplete()"/>
           </mat-form-field>
           <mat-autocomplete #auto="matAutocomplete" *ngIf="type==='searches'">
-            <mat-option *ngFor="let search of (coreState|async).searches" [value]="search">
-              {{ search }}
+            <mat-option *ngFor="let search of (coreState|async).searches" [value]="search.searchTerm">
+              {{ search.searchTerm }}
             </mat-option>
           </mat-autocomplete>
           <mat-autocomplete #auto="matAutocomplete" *ngIf="type==='suggestions'">
-            <mat-option *ngFor="let suggestion of (coreState|async).suggestions" [value]="suggestion">
-              {{ suggestion }}
+            <mat-option *ngFor="let suggestion of (coreState|async).suggestions" [value]="suggestion.word">
+              {{ suggestion.word }}
             </mat-option>
           </mat-autocomplete>
           <button mat-button><i class="material-icons">search</i></button>
