@@ -4,9 +4,9 @@ export class Search{
   searchTerm:string;
   visited:boolean;
 
-  constructor(pI:string,d:Date,sT:string,v:boolean){
+  constructor(pI:string,d:string,sT:string,v:boolean){
     this.profileId=pI;
-    this.date=d;
+    this.date=new Date(d);
     this.searchTerm=sT;
     this.visited=v;
   }

@@ -36,6 +36,11 @@ export class HeaderComponent implements OnInit {
   }
 
   loadSearches(){
+    this.store.select('core').pipe(take(1)).subscribe(
+      (coreState)=>{
+        console.log(coreState);
+      }
+    );
     if(this.searchForm.value.searchTerm!="" && this.searchForm.value.searchTerm!=null){
       this.type="suggestions";
     }else{
@@ -49,16 +54,11 @@ export class HeaderComponent implements OnInit {
 
   private initForm(){
     this.searchForm=new FormGroup({
-      'searchTerm':new FormControl('',Validators.required)
+      'searchTerm':new FormControl('') //,Validators.required
     });
   }
 
   ngOnInit() {
-    this.store.select('core').pipe(take(1)).subscribe(
-      (coreState)=>{
-        console.log(coreState.searches);
-      }
-    );
     this.initForm();
     this.coreState$=this.store.select('core');
   }

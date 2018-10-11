@@ -28,12 +28,23 @@ export class CoreEffects{
   ),map(
     (searches:Search[])=>{
       console.log(searches);
+      let propsearchesData=Object.keys(searches);
+      let searchesDataV=[];
+      for(let prop of propsearchesData){
+        searchesDataV.push(searches[prop]);
+      }
+      let searches2:Search[]=[];
+      console.log(searchesDataV);
+      for(let search of searchesDataV){
+        searches2.push(new Search(search.profileId,search.date,search.searchTerm,search.visited));
+      }
+      console.log(searches2);
       /*for(let recipe of recipes){
         if(!recipe['ingredients']){
           recipe['ingredients']=[];
         }
       }*/
-      return new coreActions.LoadSearches(searches);
+      return new coreActions.LoadSearches(searches2);
     }
   ),catchError(
     (error,X)=>{

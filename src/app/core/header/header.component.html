@@ -11,17 +11,24 @@
             <input type="text" matInput [formControlName]="'searchTerm'" [matAutocomplete]="auto"
               (focus)="loadSearches()" (change)="loadSuggestions()" (blur)="unloadAutocomplete()"/>
           </mat-form-field>
-          <mat-autocomplete #auto="matAutocomplete" *ngIf="type==='searches'">
-            <mat-option *ngFor="let search of (coreState|async).searches" [value]="search.searchTerm">
-              {{ search.searchTerm }}
-            </mat-option>
+          <mat-autocomplete #auto="matAutocomplete">
+            <div *ngIf="type==='searches'">
+              <mat-option>
+                VOS RECHERCHES <a RouterLink="/edit-searches" class="float-right">MODIFIER</a>
+              </mat-option>
+              <mat-option *ngFor="let search of (coreState$|async).searches"
+                [value]="search.searchTerm">
+                {{ search.searchTerm }}
+              </mat-option>
+            </div>
+            <div *ngIf="type==='suggestions'">
+              <mat-option *ngFor="let suggestion of (coreState$|async).suggestions"
+                [value]="suggestion.word">
+                {{ suggestion.word }}
+              </mat-option>
+            </div>
           </mat-autocomplete>
-          <mat-autocomplete #auto="matAutocomplete" *ngIf="type==='suggestions'">
-            <mat-option *ngFor="let suggestion of (coreState|async).suggestions" [value]="suggestion.word">
-              {{ suggestion.word }}
-            </mat-option>
-          </mat-autocomplete>
-          <button mat-button><i class="material-icons">search</i></button>
+          <button mat-button type="submit"><i class="material-icons">search</i></button>
         </form>
         <li routerLinkActive="active" class="nav-item"><a routerLink="/movies" class="nav-link">Movies</a></li>
       </ul>
