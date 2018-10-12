@@ -14,15 +14,15 @@ import {MaterialModulesModule} from '../shared/material-modules.module';
   imports:[
     CommonModule,
     ReactiveFormsModule,
-    AppRoutingModule,
     MaterialModulesModule,
-    HttpClientModule
-  ],
-  providers:[
-
+    HttpClientModule,
+    AppRoutingModule
   ],
   exports:[
-    HeaderComponent
+    HeaderComponent,
+    AppRoutingModule
+  ],
+  providers:[
   ]
 })
 export class CoreModule{}

@@ -15,6 +15,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {AuthModule} from './auth/auth.module';
 import {ProfileModule} from './profile/profile.module';
 import {AuthEffects} from './auth/store/auth.effects';
+import { AllActivityModule } from './all-activity/all-activity.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {AuthEffects} from './auth/store/auth.effects';
     CoreModule,
     AuthModule,
     ProfileModule,
+    AllActivityModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModulesModule,

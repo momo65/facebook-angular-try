@@ -12,8 +12,8 @@ export interface State{
 }
 
 const initialState:State={
-  firstName:'',
-  lastName:'',
+  firstName:'momo',
+  lastName:'edsa77a77',
   id:"ss.dd@gmail.com",
   password:null,
   birthDate:null,

@@ -21,6 +21,20 @@ export class HeaderComponent implements OnInit {
 
   constructor(private router:Router,private store:Store<fromApp.AppState>) { }
 
+  editCurrentSearches(){
+    console.log("we r in");
+    this.store.select('auth').pipe(take(1)).subscribe(
+      (authState)=>{
+        this.store.select('profile').pipe(take(1)).subscribe(
+          (profileState)=>{
+            this.router.navigate([authState.lastName+'.'+authState.firstName+'.'+profileState.fromCity,'allactivity'],
+              {queryParams:{privacy_source:"activity_log",log_filter:"search"},fragment:'_'});
+          }
+        );
+      }
+    );
+  }
+
   loadSuggestions(){
     if(this.searchForm.value.searchTerm=="" || this.searchForm.value.searchTerm==null){
       this.type="searches";
@@ -32,15 +46,12 @@ export class HeaderComponent implements OnInit {
   }
 
   unloadAutocomplete(){
-    this.type="unload";
+    setTimeout(()=>{
+      this.type="unload";
+    },300);
   }
 
   loadSearches(){
-    this.store.select('core').pipe(take(1)).subscribe(
-      (coreState)=>{
-        console.log(coreState);
-      }
-    );
     if(this.searchForm.value.searchTerm!="" && this.searchForm.value.searchTerm!=null){
       this.type="suggestions";
     }else{
@@ -48,7 +59,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  searchFor(){
+  searchFor(event){
     //this.router.navigate(['profile',this.searchForm.value['searchEntityLabel']]);
   }
 

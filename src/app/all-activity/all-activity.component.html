@@ -1,0 +1,16 @@
+<div class="row no-gutters">
+  <div class="col-xs-3 col-sm-3 col-md-3 mt-3 mr-1">
+    <div class="col-xs-2 col-sm-2 col-md-2 ml-6">
+      <app-filters></app-filters>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-6">
+    <app-search-history *ngIf="privacySource==='activity_log'&&logFilter==='search'&&hash==='_'">
+    </app-search-history>
+  </div>
+  <div class="col-xs-3 col-sm-3 col-md-3 mt-1 ml-1">
+    <div class="col-xs-2 col-sm-2 col-md-2 mr-6">
+      <app-history-years></app-history-years>
+    </div>
+  </div>
+</div>

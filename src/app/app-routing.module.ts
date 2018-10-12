@@ -1,18 +1,15 @@
 import {NgModule} from '@angular/core';
-import {Routes,RouterModule} from '@angular/router';
-
-//import {ProfileComponent} from './profile/'
+import {Routes,RouterModule,PreloadAllModules} from '@angular/router';
 
 const appRoutes:Routes=[
-  //{'profile',component:ProfileComponent}
+  {path:'profile',loadChildren:'./profile/profile.module#ProfileModule'},
+  {path:':lastName.:firstName.:fromCity/allactivity',loadChildren:
+    './all-activity/all-activity.module#AllActivityModule'}
 ];
 
 @NgModule({
-  declarations:[
-
-  ],
   imports:[
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes,{preloadingStrategy:PreloadAllModules})
   ],
   exports:[
     RouterModule

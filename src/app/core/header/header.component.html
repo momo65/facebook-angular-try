@@ -7,14 +7,16 @@
     <div class="" id="">
       <ul class="navbar-nav nav">
         <form [formGroup]="searchForm" class="form-inline" (ngSubmit)="searchFor($event)">
-          <mat-form-field>
+          <mat-form-field class="searchInput">
             <input type="text" matInput [formControlName]="'searchTerm'" [matAutocomplete]="auto"
               (focus)="loadSearches()" (change)="loadSuggestions()" (blur)="unloadAutocomplete()"/>
           </mat-form-field>
           <mat-autocomplete #auto="matAutocomplete">
             <div *ngIf="type==='searches'">
               <mat-option>
-                VOS RECHERCHES <a RouterLink="/edit-searches" class="float-right">MODIFIER</a>
+                <p class="searchInitialOption">VOS RECHERCHES <a class="float-right editSearchesLink"
+                    routerLinkActive="active" (click)="editCurrentSearches()">
+                      MODIFIER</a></p>
               </mat-option>
               <mat-option *ngFor="let search of (coreState$|async).searches"
                 [value]="search.searchTerm">
