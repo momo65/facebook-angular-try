@@ -13,23 +13,24 @@ import {reducers} from './store/app.reducers';
 import {CoreEffects} from './core/store/core.effects';
 import { ProfileComponent } from './profile/profile.component';
 import {AuthModule} from './auth/auth.module';
-import {ProfileModule} from './profile/profile.module';
 import {AuthEffects} from './auth/store/auth.effects';
-import { AllActivityModule } from './all-activity/all-activity.module';
+import { WelcomeComponent } from './welcome/welcome.component';
+import {SharedModule} from './shared/shared.module';
+import {NgbModulesModule} from './shared/ngb-modules.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
-    CoreModule,
-    AuthModule,
-    ProfileModule,
-    AllActivityModule,
     AppRoutingModule,
+    CoreModule,
+    SharedModule,
+    AuthModule,
+    NgbModulesModule,
     BrowserAnimationsModule,
-    MaterialModulesModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([CoreEffects,AuthEffects])
   ],

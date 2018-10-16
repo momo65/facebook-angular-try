@@ -1,3 +1,18 @@
-<p>
-  search-history works!
-</p>
+<div class="row no-gutters">
+  <div col-xs-12 col-sm-12 col-md-12>
+    <span class="ml-1 mt-1 mr-1">
+      <img class="img-responsive" src="../../../assets/search_loop.jpg" alt="search loop image"
+        style="max-height:30px;max-width:30px;"/></span>
+    <h4>Historique personnel</h4>
+    <div class="float-right mr-2">
+      <span *ngIf="effacer" style="border-right:solid 1px gray;" (click)="displayDeleteModal()">
+        <p class="deleteSearchesP">Effacer les recherches</p></span>
+        <mat-form-field class="historySearchInput" *ngIf="!effacer">
+          <input type="text" matInput (keyUp.enter)="searchTerm()"
+            (blur)="hideSearchBar()" #historySearch/>
+        </mat-form-field>
+      <button mat-button type="button" (click)="displaySearchBar()">
+        <span style="font-size:0.9em;color:black;"><i class="material-icons">search</i></span></button>
+    </div>
+  </div>
+</div>

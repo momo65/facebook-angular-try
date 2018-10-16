@@ -8,8 +8,8 @@ export interface State{
 }
 
 const initialState:State={
-  searches:[],
-  suggestions:[]
+  searches:[], //max length of 8
+  suggestions:[]  //max length of 8
 };
 
 export function coreReducer(state=initialState,action:coreActions.CoreActions){

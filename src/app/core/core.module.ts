@@ -1,20 +1,19 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from '../app-routing.module';
-import {MaterialModulesModule} from '../shared/material-modules.module';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations:[
     HeaderComponent
   ],
   imports:[
-    CommonModule,
+    SharedModule,
     ReactiveFormsModule,
-    MaterialModulesModule,
     HttpClientModule,
     AppRoutingModule
   ],
@@ -23,6 +22,7 @@ import {MaterialModulesModule} from '../shared/material-modules.module';
     AppRoutingModule
   ],
   providers:[
+    NgbModal
   ]
 })
 export class CoreModule{}
