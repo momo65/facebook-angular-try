@@ -4,6 +4,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 //import {NoopAnimationsModule} from '@angular/platform-browser/animations';// to have no animations loaded.
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { AppComponent } from './app.component';
 import {CoreModule} from './core/core.module';
@@ -17,6 +20,7 @@ import {AuthEffects} from './auth/store/auth.effects';
 import { WelcomeComponent } from './welcome/welcome.component';
 import {SharedModule} from './shared/shared.module';
 import {NgbModulesModule} from './shared/ngb-modules.module';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,9 @@ import {NgbModulesModule} from './shared/ngb-modules.module';
     AuthModule,
     NgbModulesModule,
     BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase,'angularfacebookapp'),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([CoreEffects,AuthEffects])
   ],

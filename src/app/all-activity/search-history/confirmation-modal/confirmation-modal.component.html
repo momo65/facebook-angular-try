@@ -1,7 +1,7 @@
-<ng-template #content let-modal>
+<div class="modalDiv">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Êtes-vous certain(e) ?</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -12,8 +12,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button mat-button type="button" class="btn btn-secondary" (click)="modal.close('Cancel click')">Annuler</button>
-    <button mat-button type="button" class="btn btn-primary" (click)="deleteAllSearches()">
+    <button mat-button type="button" (click)="dismiss('Cancel click')">Annuler</button>
+    <button mat-button type="button" class="delAllSearchesButt" (click)="deleteAllSearches()">
       Effacer les recherches</button>
   </div>
-</ng-template>
+</div>

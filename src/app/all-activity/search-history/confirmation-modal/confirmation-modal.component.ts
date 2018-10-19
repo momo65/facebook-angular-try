@@ -11,13 +11,19 @@ import * as aAActions from '../../store/all-activity.actions';
   styleUrls: ['./confirmation-modal.component.css']
 })
 export class ConfirmationModalComponent implements OnInit {
+  modalRef:any;
 
   constructor(private store:Store<fromAA.FeatureState>) { }
+
+  dismiss(msg:string){
+    this.modalRef.close();
+  }
 
   deleteAllSearches(){
     this.store.select('auth').pipe(take(1)).subscribe(
       (authState)=>{
         this.store.dispatch(new aAActions.DoDeleteSearches(authState.id));
+        this.modalRef.close();
       }
     );
   }

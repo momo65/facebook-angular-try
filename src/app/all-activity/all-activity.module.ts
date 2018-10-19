@@ -25,6 +25,9 @@ import {AllActivityEffects} from './store/all-activity.effects';
     PersonalHistoryComponent,
     ConfirmationModalComponent
   ],
+  entryComponents:[
+    ConfirmationModalComponent
+  ],
   imports:[
     SharedModule,
     AllActivityRoutingModule,

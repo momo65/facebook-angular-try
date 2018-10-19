@@ -1,3 +1,6 @@
 .deleteSearchesP:hover{
   text-decoration: underline;
 }
+.deleteSearchesP{
+  font-size: 14px;
+}

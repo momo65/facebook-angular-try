@@ -6,6 +6,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from '../app-routing.module';
 import {SharedModule} from '../shared/shared.module';
+import {NgbModulesModule} from '../shared/ngb-modules.module';
 
 @NgModule({
   declarations:[
@@ -15,6 +16,7 @@ import {SharedModule} from '../shared/shared.module';
     SharedModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModulesModule,
     AppRoutingModule
   ],
   exports:[

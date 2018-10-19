@@ -11,17 +11,29 @@ import {ConfirmationModalComponent}from './confirmation-modal/confirmation-modal
 export class SearchHistoryComponent implements OnInit {
   effacer:boolean;
   @ViewChild('historySearch') historyS:ElementRef;
+  searchResultsTag:boolean;
 
   constructor(private ngbService:NgbModal) { }
 
+  searchTerm(){
+    console.log(this.historyS.nativeElement.value); //here next
+    /*
+    this.store.dispatch(new aAActions.DoSearchInSearches(this.historyS.nativeElement.value));
+    this.searchResultsTag=true;
+    */
+  }
+
   displayDeleteModal(){
-    this.ngbService.open(ConfirmationModalComponent,{size:'sm'});
+    const modalRef=this.ngbService.open(ConfirmationModalComponent,{size:'sm'});
+    modalRef.componentInstance.modalRef=modalRef;
   }
 
   displaySearchBar(){
     if(this.effacer===true){
       this.effacer=false;
-      this.historyS.nativeElement.focus();
+      setTimeout(()=>{
+        this.historyS.nativeElement.focus();
+      },0);
     }else if(this.historyS.nativeElement.value==''||this.historyS.nativeElement.value==null){
       this.effacer=true;
     }else{//we need to search for the word in this case
@@ -35,12 +47,9 @@ export class SearchHistoryComponent implements OnInit {
     }
   }
 
-  searchTerm(){
-    console.log(this.historyS.nativeElement.value); //here next
-  }
-
   ngOnInit() {
     this.effacer=true;
+    this.searchResultsTag=false;
   }
 
 }

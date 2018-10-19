@@ -8,3 +8,6 @@ p.searchInitialOption{
 a.editSearchesLink:hover{
   text-decoration: underline;
 }
+.nbBg{
+  background-color: rgb(60,90,154);
+}
