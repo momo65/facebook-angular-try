@@ -1,56 +1,19 @@
 import {Injectable} from '@angular/core';
 import {Actions,Effect} from '@ngrx/effects';
 import {HttpClient,HttpParams} from '@angular/common/http';
-import {map,switchMap,mergeMap,take,catchError} from 'rxjs/operators';
-import { AngularFirestore,AngularFirestoreDocument,DocumentReference,
-  DocumentChangeType,DocumentData} from '@angular/fire/firestore';
-import {SnapshotMetadata} from 'firebase/firestore';
-import { Observable } from 'rxjs';
+import {map,catchError} from 'rxjs/operators';
+import { AngularFireDatabase,AngularFireList} from 'angularfire2/database';
+import {Observable} from 'rxjs';
+import * as _ from "lodash";
 
 import * as aAActions from './all-activity.actions';
 
-export interface Search{
-  date:string;
-  profileId:string;
-  searchedTerm:string;
-  visited:boolean;
-}
-interface DocumentChangeAction {
-  //'added' | 'modified' | 'removed';
-  type: DocumentChangeType;
-  payload: DocumentChange;
-}
-interface DocumentChange {
-  type: DocumentChangeType;
-  doc: DocumentSnapshot;
-  oldIndex: number;
-  newIndex: number;
-}
-interface DocumentSnapshot {
-  exists: boolean;
-  ref: DocumentReference;
-  id: string;
-  metadata: SnapshotMetadata;
-  data(): DocumentData;
-  get(fieldPath: string): any;
-}
-
 @Injectable()
 export class AllActivityEffects{
-  private searchDoc: AngularFirestoreDocument<Search>;
-  search: Observable<Search>;
-  searches: Observable<any[]>;
+  searchesRef:AngularFireList<any>=null;
 
-  constructor(private actions$:Actions,private httpClient:HttpClient,db: AngularFirestore,
-    private afs:AngularFirestore){
-    this.searches = db.collection('searches').valueChanges();
-    console.log(this.searches);
-    this.searchDoc = afs.doc<Search>('searches/1');
-    this.search = this.searchDoc.valueChanges();
-  }
-
-  update(search: Search) {
-    this.searchDoc.update(search);
+  constructor(private actions$:Actions,private httpClient:HttpClient,public db: AngularFireDatabase){
+    this.searchesRef=db.list('/searches');
   }
 
   @Effect()
@@ -60,19 +23,19 @@ export class AllActivityEffects{
     }
   ),map(
     (id:string)=>{
-      console.log(this.searches);
-      this.searches.pipe(take(1)).subscribe(
+      this.deleteSearches("profileId",id);
+      /*this.searches.pipe(take(1)).subscribe(
         (searchesArray)=>{
           console.log(searchesArray);
-          /*for(let i=1;i<=searchesArray.length;i++){
+          for(let i=1;i<=searchesArray.length;i++){
             this.searchDoc = this.afs.doc<Search>('searches/'+i);
             this.search = this.searchDoc.valueChanges();
             if(this.search.profileId=="ds.ig@gmail.com"){
               this.searchDoc.delete();
             }
-          }*/
+          }
         }
-      );
+      );*/
       return new aAActions.DeleteSearches();
     }
   ),catchError(
@@ -81,4 +44,21 @@ export class AllActivityEffects{
       return X;
     }
   ));
+
+  deleteSearches(propName:string,propValue:string){
+    this.searchesRef.snapshotChanges().pipe(map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    }),map(
+      (searches) => {
+        let keysD=_.keys(searches);
+        console.log(keysD);
+        let k=0;
+        let x;
+        while(k<searches.length){
+          x=_.findIndex(searches,function(s){return s[propName]==propValue;},k);//'ds.ig@gmail.com'
+          this.db.object('searches/'+keysD[x]).remove();
+          k=x+1;
+        }
+    })).subscribe();
+  }
 }

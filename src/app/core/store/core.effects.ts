@@ -36,7 +36,7 @@ export class CoreEffects{
       let searches2:Search[]=[];
       console.log(searchesDataV);
       for(let search of searchesDataV){
-        searches2.push(new Search(search.profileId,search.date,search.searchTerm,search.visited));
+        searches2.push(new Search(search.profileId,search.date,search.searchedTerm,search.visited));
       }
       console.log(searches2);
       /*for(let recipe of recipes){

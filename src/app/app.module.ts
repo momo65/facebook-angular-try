@@ -5,8 +5,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { AppComponent } from './app.component';
 import {CoreModule} from './core/core.module';
@@ -25,7 +24,7 @@ import {environment} from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,9 +34,8 @@ import {environment} from '../environments/environment';
     AuthModule,
     NgbModulesModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase,'angularfacebookapp'),
-    AngularFirestoreModule,
-    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([CoreEffects,AuthEffects])
   ],

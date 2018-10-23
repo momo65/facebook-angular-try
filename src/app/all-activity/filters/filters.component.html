@@ -6,8 +6,8 @@
       <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'all'}">
         <div class="histoPersDiv">
           <span style="font-size:1.3em;color:gray;"><i class="fab fa-facebook"></i></span>
-          <b *ngIf="privacySource==='activity_log'&&logFilter==='all'">Historique personnel</b>
-          <p *ngIf="logFilter!=='all'">Historique personnel</p>
+          <b *ngIf="privacy_source==='activity_log'&&log_filter==='all'">Historique personnel</b>
+          <p *ngIf="log_filter!=='all'">Historique personnel</p>
         </div>
       </a>
     </li>
@@ -15,8 +15,8 @@
       <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'review'}">
         <div class="ExamJourDiv">
           <span style="font-size:1.3em;color:gray;"><i class="material-icons">event_note</i></span>
-          <b *ngIf="privacySource==='activity_log'&&logFilter==='review'">Examen du journal</b>
-          <p *ngIf="logFilter!=='review'">Examen du journal</p>
+          <b *ngIf="privacy_source==='activity_log'&&log_filter==='review'">Examen du journal</b>
+          <p *ngIf="log_filter!=='review'">Examen du journal</p>
         </div>
       </a>
     </li>
@@ -24,8 +24,8 @@
       <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'photoreview'}">
         <div class="ExamPhotosDiv">
           <span style="font-size:1.3em;color:gray;"><i class="material-icons">photo_library</i></span>
-          <b *ngIf="privacySource==='activity_log'&&logFilter==='photoreview'">Examen des photos</b>
-          <p *ngIf="logFilter!=='photoreview'">Examen des photos</p>
+          <b *ngIf="privacy_source==='activity_log'&&log_filter==='photoreview'">Examen des photos</b>
+          <p *ngIf="log_filter!=='photoreview'">Examen des photos</p>
         </div>
       </a>
     </li>
@@ -34,8 +34,8 @@
       <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'cluster_11'}">
         <div class="PublicatsDiv">
           <span style="font-size:1.3em;color:gray;"><i class="material-icons">person</i></span>
-          <b *ngIf="privacySource==='activity_log'&&logFilter==='cluster_11'">Publications</b>
-          <p *ngIf="logFilter!=='cluster_11'">Publications</p>
+          <b *ngIf="privacy_source==='activity_log'&&log_filter==='cluster_11'">Publications</b>
+          <p *ngIf="log_filter!=='cluster_11'">Publications</p>
         </div>
       </a>
     </li>
@@ -43,8 +43,8 @@
       <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'cluster_200'}">
         <div class="OuVousDiv">
           <span style="font-size:1.3em;color:gray;"><i class="material-icons">local_offer</i></span>
-          <b *ngIf="privacySource==='activity_log'&&logFilter==='cluster_200'">Où vous apparaissez</b>
-          <p *ngIf="logFilter!=='cluster_200'">Où vous apparaissez</p>
+          <b *ngIf="privacy_source==='activity_log'&&log_filter==='cluster_200'">Où vous apparaissez</b>
+          <p *ngIf="log_filter!=='cluster_200'">Où vous apparaissez</p>
         </div>
       </a>
     </li>
@@ -52,9 +52,9 @@
       <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'cluster_5'}">
         <div class="PubsAutrPersDiv">
           <span style="font-size:1.3em;color:gray;"><i class="material-icons">textsms</i></span>
-          <b *ngIf="privacySource==='activity_log'&&logFilter==='cluster_5'">
+          <b *ngIf="privacy_source==='activity_log'&&log_filter==='cluster_5'">
             Publications d'autres personnes sur votre journal</b>
-          <p *ngIf="logFilter!=='cluster_5'">Publications d'autres personnes sur votre journal</p>
+          <p *ngIf="log_filter!=='cluster_5'">Publications d'autres personnes sur votre journal</p>
         </div>
       </a>
     </li>
@@ -62,8 +62,8 @@
       <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'hidden'}">
         <div class="InvisDansJournDiv">
           <span style="font-size:1.3em;color:gray;"><i class="material-icons">not_interested</i></span>
-          <b *ngIf="privacySource==='activity_log'&&logFilter==='hidden'">Invisibles dans le journal</b>
-          <p *ngIf="logFilter!=='hidden'">Invisibles dans le journal</p>
+          <b *ngIf="privacy_source==='activity_log'&&log_filter==='hidden'">Invisibles dans le journal</b>
+          <p *ngIf="log_filter!=='hidden'">Invisibles dans le journal</p>
         </div>
       </a>
     </li>
@@ -72,26 +72,26 @@
       <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'photos'}">
         <div class="PhotoVidsDiv">
           <span style="font-size:1.3em;color:gray;"><i class="material-icons">collections</i></span>
-          <b *ngIf="privacySource==='activity_log'&&logFilter==='photos'">Photos et vidéos</b>
-          <p *ngIf="logFilter!=='photos'">Photos et vidéos</p>
+          <b *ngIf="privacy_source==='activity_log'&&log_filter==='photos'">Photos et vidéos</b>
+          <p *ngIf="log_filter!=='photos'">Photos et vidéos</p>
         </div>
       </a>
-      <ul class="list-unstyled" *ngIf="logFilter==='photos'||logFilter==='taggedphotos'||logFilter==='ownphotos'">
+      <ul class="list-unstyled" *ngIf="log_filter==='photos'||log_filter==='taggedphotos'||log_filter==='ownphotos'">
         <li>
           <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'taggedphotos'}">
             <div class="PhotosDansLequsDiv">
-              <b *ngIf="privacySource==='activity_log'&&logFilter==='taggedphotos'">
+              <b *ngIf="privacy_source==='activity_log'&&log_filter==='taggedphotos'">
                 Photos dans lesquelles vous êtes identifié</b>
-              <p *ngIf="logFilter!=='taggedphotos'">Photos dans lesquelles vous êtes indentifié</p>
+              <p *ngIf="log_filter!=='taggedphotos'">Photos dans lesquelles vous êtes indentifié</p>
             </div>
           </a>
         </li>
         <li>
           <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'ownphotos'}">
             <div class="PhotosSeulmDiv">
-              <b *ngIf="privacySource==='activity_log'&&logFilter==='ownphotos'">
+              <b *ngIf="privacy_source==='activity_log'&&log_filter==='ownphotos'">
                 Photos seulement</b>
-              <p *ngIf="logFilter!=='ownphotos'">Photos seulement</p>
+              <p *ngIf="log_filter!=='ownphotos'">Photos seulement</p>
             </div>
           </a>
         </li>
@@ -101,26 +101,26 @@
       <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'likes'}">
         <div class="MentsJaimeDiv">
           <span style="font-size:1.3em;color:gray;"><i class="material-icons">thumb_up_alt</i></span>
-          <b *ngIf="privacySource==='activity_log'&&logFilter==='likes'">Mentions j'aime et réactions</b>
-          <p *ngIf="logFilter!=='likes'">Mentions j'aime et réactions</p>
+          <b *ngIf="privacy_source==='activity_log'&&log_filter==='likes'">Mentions j'aime et réactions</b>
+          <p *ngIf="log_filter!=='likes'">Mentions j'aime et réactions</p>
         </div>
       </a>
-      <ul class="list-unstyled" *ngIf="logFilter==='likes'||logFilter==='likedposts'||logFilter==='likedinterests'">
+      <ul class="list-unstyled" *ngIf="log_filter==='likes'||log_filter==='likedposts'||log_filter==='likedinterests'">
         <li>
           <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'likedposts'}">
             <div class="PublEtCommentsDiv">
-              <b *ngIf="privacySource==='activity_log'&&logFilter==='likedposts'">
+              <b *ngIf="privacy_source==='activity_log'&&log_filter==='likedposts'">
                 Publications et commentaires</b>
-              <p *ngIf="logFilter!=='likedposts'">Publications et commentaires</p>
+              <p *ngIf="log_filter!=='likedposts'">Publications et commentaires</p>
             </div>
           </a>
         </li>
         <li>
           <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'likedinterests'}">
             <div class="PagesEtInterDiv">
-              <b *ngIf="privacySource==='activity_log'&&logFilter==='likedinterests'">
+              <b *ngIf="privacy_source==='activity_log'&&log_filter==='likedinterests'">
                 Pages et intérêts</b>
-              <p *ngIf="logFilter!=='likedinterests'">Pages et intérêts</p>
+              <p *ngIf="log_filter!=='likedinterests'">Pages et intérêts</p>
             </div>
           </a>
         </li>
@@ -130,9 +130,9 @@
       <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'cluster_116'}">
         <div class="CommentairesDiv">
           <span style="font-size:1.3em;color:gray;"><i class="material-icons">chat_bubble</i></span>
-          <b *ngIf="privacySource==='activity_log'&&logFilter==='cluster_116'">
+          <b *ngIf="privacy_source==='activity_log'&&log_filter==='cluster_116'">
             Commentaires</b>
-          <p *ngIf="logFilter!=='cluster_116'">Commentaires</p>
+          <p *ngIf="log_filter!=='cluster_116'">Commentaires</p>
         </div>
       </a>
     </li>
@@ -141,9 +141,9 @@
       <a [routerLink]="['.']" [queryParams]="{privacy_source:'activity_log',log_filter:'apps'}">
         <div class="AppsDiv">
           <span style="font-size:1.3em;color:gray;"><i class="material-icons">apps</i></span>
-          <b *ngIf="privacySource==='activity_log'&&logFilter==='apps'">
+          <b *ngIf="privacy_source==='activity_log'&&log_filter==='apps'">
             Apps</b>
-          <p *ngIf="logFilter!=='apps'">Apps</p>
+          <p *ngIf="log_filter!=='apps'">Apps</p>
         </div>
       </a>
     </li>

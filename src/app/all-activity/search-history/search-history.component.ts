@@ -1,7 +1,10 @@
 import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Store} from '@ngrx/store';
 
 import {ConfirmationModalComponent}from './confirmation-modal/confirmation-modal.component';
+import * as fromAA from '../store/all-activity.reducers';
+import * as aAActions from '../store/all-activity.actions';
 
 @Component({
   selector: 'app-search-history',
@@ -13,14 +16,12 @@ export class SearchHistoryComponent implements OnInit {
   @ViewChild('historySearch') historyS:ElementRef;
   searchResultsTag:boolean;
 
-  constructor(private ngbService:NgbModal) { }
+  constructor(private ngbService:NgbModal,private store:Store<fromAA.FeatureState>) { }
 
   searchTerm(){
-    console.log(this.historyS.nativeElement.value); //here next
-    /*
+    console.log(this.historyS.nativeElement.value);
     this.store.dispatch(new aAActions.DoSearchInSearches(this.historyS.nativeElement.value));
     this.searchResultsTag=true;
-    */
   }
 
   displayDeleteModal(){

@@ -35,20 +35,10 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  loadSuggestions(){
-    if(this.searchForm.value.searchTerm=="" || this.searchForm.value.searchTerm==null){
-      this.type="searches";
-    }else{
-      console.log(this.searchForm.value.searchTerm);
-      this.store.dispatch(new coreActions.DoLoadSuggestions(this.searchForm.value.searchTerm));
-      this.type="suggestions";
-    }
-  }
-
   unloadAutocomplete(){
     setTimeout(()=>{
       this.type="unload";
-    },300);
+    },300);//0 doesn't work for selecting from autocomplete
   }
 
   loadSearches(){
@@ -59,8 +49,15 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  searchFor(event){
-    //this.router.navigate(['profile',this.searchForm.value['searchEntityLabel']]);
+  searchFor(term:string,k:number){
+    let formattedTerm;
+    if(term==='' && k===-1){
+      formattedTerm=this.searchForm.value.searchTerm.trim().replace(' ','+');
+      
+    }else{
+      formattedTerm=term.trim().replace(' ','+');
+    }
+    this.router.navigate(['search','str',formattedTerm,'keywords_search']);
   }
 
   private initForm(){
@@ -72,6 +69,17 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.coreState$=this.store.select('core');
+    this.searchForm.get('searchTerm').valueChanges.subscribe(
+      (searchT)=>{
+        if(searchT=="" || searchT==null){
+          this.type="searches";
+        }else{
+          console.log(searchT);
+          this.store.dispatch(new coreActions.DoLoadSuggestions(searchT));
+          this.type="suggestions";
+        }
+      }
+    );
   }
 
 }
