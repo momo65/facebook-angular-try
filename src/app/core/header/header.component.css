@@ -9,5 +9,36 @@ a.editSearchesLink:hover{
   text-decoration: underline;
 }
 .nbBg{
-  background-color: rgb(60,90,154);
+  background-color: rgb(66,103,178);
+}
+.searchInput{
+  background-color:white;
+  height:auto;
+}
+.profilePictSpan{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  position:relative;
+  bottom:7px;
+}
+.lastNameP{
+  color:white;
+  position:relative;
+  bottom:7px;
+}
+.profileDiv{
+  height:52px;
+  border-radius:3px;
+  border-right: 1px solid rgb(59,92,160);
+}
+div.profileDiv:hover{
+  background-color:rgb(59,92,160)!important;
+}
+.welcomeDiv{
+  height:52px;
+  border-right:1px solid rgb(59,92,160);
+}
+.welcomeP{
+  color:white;
 }

@@ -7,10 +7,14 @@ import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from '../app-routing.module';
 import {SharedModule} from '../shared/shared.module';
 import {NgbModulesModule} from '../shared/ngb-modules.module';
+import { LanguageComponent } from './language/language.component';
+import { ConfidentialityComponent } from './confidentiality/confidentiality.component';
 
 @NgModule({
   declarations:[
-    HeaderComponent
+    HeaderComponent,
+    LanguageComponent,
+    ConfidentialityComponent
   ],
   imports:[
     SharedModule,

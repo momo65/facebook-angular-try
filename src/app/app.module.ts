@@ -16,15 +16,15 @@ import {CoreEffects} from './core/store/core.effects';
 import { ProfileComponent } from './profile/profile.component';
 import {AuthModule} from './auth/auth.module';
 import {AuthEffects} from './auth/store/auth.effects';
-import { WelcomeComponent } from './welcome/welcome.component';
 import {SharedModule} from './shared/shared.module';
 import {NgbModulesModule} from './shared/ngb-modules.module';
 import {environment} from '../environments/environment';
+import {SearchModule} from './search/search.module';
+import {WelcomeModule} from './welcome/welcome.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    WelcomeComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +32,8 @@ import {environment} from '../environments/environment';
     CoreModule,
     SharedModule,
     AuthModule,
+    SearchModule,
+    WelcomeModule,
     NgbModulesModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),

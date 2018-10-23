@@ -6,6 +6,7 @@ import {map,switchMap,catchError} from 'rxjs/operators';
 import * as coreActions from './core.actions';
 import {Search} from '../../shared/search.model';
 import * as coreHelpers from './core-helpers';
+import {Suggestion} from '../../shared/suggestion.model';
 
 @Injectable()
 export class CoreEffects{
@@ -27,18 +28,18 @@ export class CoreEffects{
     }
   ),map(
     (searches:Search[])=>{
-      console.log(searches);
       let propsearchesData=Object.keys(searches);
       let searchesDataV=[];
       for(let prop of propsearchesData){
         searchesDataV.push(searches[prop]);
       }
       let searches2:Search[]=[];
-      console.log(searchesDataV);
+      let k=0;
       for(let search of searchesDataV){
         searches2.push(new Search(search.profileId,search.date,search.searchedTerm,search.visited));
+        k++;
+        if(k==8)break;
       }
-      console.log(searches2);
       /*for(let recipe of recipes){
         if(!recipe['ingredients']){
           recipe['ingredients']=[];
@@ -61,16 +62,16 @@ export class CoreEffects{
     }
   ),switchMap(
     (searchedTerm)=>{//hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-      return this.httpClient.get<Search[]>("https://angularfacebookapp.firebaseio.com/profiles.json");//add token with AuthInterceptor
+      return this.httpClient.get<Suggestion[]>("https://angularfacebookapp.firebaseio.com/profiles.json");//add token with AuthInterceptor
     }
   ),map(
-    (searches)=>{
+    (suggestions)=>{
       /*for(let recipe of recipes){
         if(!recipe['ingredients']){
           recipe['ingredients']=[];
         }
       }*/
-      return new coreActions.LoadSearches(searches);
+      return new coreActions.LoadSuggestions(suggestions);
     }
   ),catchError(
     (error,X)=>{

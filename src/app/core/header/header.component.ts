@@ -1,25 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {take} from 'rxjs/operators';
+import {take,distinctUntilChanged} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 
 import * as fromApp from '../../store/app.reducers';
 import * as coreActions from '../store/core.actions';
 import * as fromCore from '../store/core.reducers';
+import * as fromAuth from '../../auth/store/auth.reducers';
+import * as fromProfile from '../../profile/store/profile.reducers';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit{
   searchForm:FormGroup;
   coreState$:Observable<fromCore.State>;
+  authState$:Observable<fromAuth.State>;
+  profileState:Observable<fromProfile.State>;
   type:string;//to define which: searches or suggestions we're gonna put in the search input.
 
-  constructor(private router:Router,private store:Store<fromApp.AppState>) { }
+  constructor(private router:Router,private store:Store<fromProfile.FeatureState>) {}
 
   editCurrentSearches(){
     console.log("we r in");
@@ -52,10 +56,18 @@ export class HeaderComponent implements OnInit {
   searchFor(term:string,k:number){
     let formattedTerm;
     if(term==='' && k===-1){
-      formattedTerm=this.searchForm.value.searchTerm.trim().replace(' ','+');
-      
+      formattedTerm=this.searchForm.value.searchTerm.trim().replace(/\/|\\|%|,|=| /g,
+        function(sep){
+          if(sep=="/"){return "%2F";}else if(sep=="\\"){return "%5C";}else if(sep=="%"){return "%25";}
+          else if(sep==","){return "%2C";}else if(sep=="="){return "%3D";}
+        });
+
     }else{
-      formattedTerm=term.trim().replace(' ','+');
+      formattedTerm=term.trim().replace(/\/|\\|%|,|=| /g,
+        function(sep){
+          if(sep=="/"){return "%2F";}else if(sep=="\\"){return "%5C";}else if(sep=="%"){return "%25";}
+          else if(sep==","){return "%2C";}else if(sep=="="){return "%3D";}
+        });
     }
     this.router.navigate(['search','str',formattedTerm,'keywords_search']);
   }
@@ -68,10 +80,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.profileState$=this.store.select('profile');
+    this.authState$=this.store.select('auth');
     this.coreState$=this.store.select('core');
-    this.searchForm.get('searchTerm').valueChanges.subscribe(
+
+    this.searchForm.get('searchTerm').valueChanges.pipe(distinctUntilChanged()).subscribe(
       (searchT)=>{
-        if(searchT=="" || searchT==null){
+        if(searchT=="" || searchT==null || searchT==undefined){
           this.type="searches";
         }else{
           console.log(searchT);

@@ -3,11 +3,11 @@ import {Search} from '../../shared/search.model';
 import * as fromApp from '../../store/app.reducers';
 
 export interface FeatureState extends fromApp.AppState{
-  allActivity:State
+  allActivity:State;
 }
 
 export interface State{
-  searches:Search[]
+  searches:Search[];
 }
 
 const initialState:State={

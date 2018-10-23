@@ -1,14 +1,14 @@
 import * as authActions from './auth.actions';
 
 export interface State{
-  firstName:string,
-  lastName:string,
-  id:string,
-  password:string,
-  birthDate:Date,
-  sex:string, //'man' or 'woman'
-  authenticated:boolean,
-  token:string
+  firstName:string;
+  lastName:string;
+  id:string;
+  password:string;
+  birthDate:Date;
+  sex:string; //'male' or 'female'
+  authenticated:boolean;
+  token:string;
 }
 
 const initialState:State={

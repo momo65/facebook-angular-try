@@ -9,7 +9,7 @@
         <form [formGroup]="searchForm" class="form-inline" (ngSubmit)="searchFor('',-1)">
           <mat-form-field class="searchInput">
             <input type="text" matInput [formControlName]="'searchTerm'" [matAutocomplete]="auto"
-              (focus)="loadSearches()" (blur)="unloadAutocomplete()"/>
+              (focus)="loadSearches()" (blur)="unloadAutocomplete()" class="searchInput"/>
           </mat-form-field>
           <mat-autocomplete #auto="matAutocomplete">
             <div *ngIf="type==='searches'">
@@ -32,12 +32,23 @@
           </mat-autocomplete>
           <button mat-button type="submit"><i class="material-icons">search</i></button>
         </form>
-        <li routerLinkActive="active" class="nav-item"><a routerLink="/movies" class="nav-link">Movies</a></li>
+        <li class="nav-item"><div class="profileDiv mt-2"><a routerLink="/profile" class="nav-link">
+          <span class="float-left profilePictSpan"><img *ngIf="(profileState$|async)" class="img-responsive"
+            style="height:52px;width:52px;border-radius:50%;" [src]="(profileState$|async)?.profilePicture">
+          </span>
+          <p class="float-right mt-3 lastNameP">{{(authState$|async)?.lastName}}</p>
+        </a></div></li>
+        <li class="nav-item"><div class="welcomeDiv mt-2"><a routerLink="/" class="nav-link">
+          <p class="mt-2 welcomeP">Accueil</p>
+        </a></div></li>
+        <li class="nav-item"><div class="createDiv mt-2"><a routerLink="/" class="nav-link">
+          <p class="mt-2 createP">Créer</p>
+        </a></div></li>
       </ul>
     </div>
     <div class="float-right">
       <ul class="navbar-nav nav mr-3">
-        <li routerLinkActive="active" class="nav-item"><a routerLink="/movies/purchased"
+        <li routerLinkActive="active" class="nav-item"><a
           class="nav-link">Purchased movies</a></li>
       </ul>
     </div>

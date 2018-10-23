@@ -3,8 +3,8 @@ import {Search} from '../../shared/search.model';
 import {Suggestion} from '../../shared/suggestion.model';
 
 export interface State{
-  searches:Search[],
-  suggestions:Suggestion[]
+  searches:Search[];
+  suggestions:Suggestion[];
 }
 
 const initialState:State={

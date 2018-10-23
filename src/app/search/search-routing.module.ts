@@ -6,8 +6,8 @@ import {KeywordsSearchComponent} from './keywords-search/keywords-search.compone
 
 
 const searchRoutes:Routes=[
-  {path:'str',component:SearchComponent,children:[
-    {path:':keyWord/keywords_search',component:KeywordsSearchComponent}
+  {path:'search',component:SearchComponent,children:[
+    {path:'str/:keyWord/keywords_search',component:KeywordsSearchComponent}
   ]}
 ];
 

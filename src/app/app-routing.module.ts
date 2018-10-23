@@ -2,14 +2,13 @@ import {NgModule} from '@angular/core';
 import {Routes,RouterModule,PreloadAllModules} from '@angular/router';
 
 import {WelcomeComponent} from './welcome/welcome.component';
-import {SearchComponent}from './search/search.component';
+//import {SearchComponent}from './search/search.component';
 
 const appRoutes:Routes=[
-  {path:'',component:WelcomeComponent},
+  {path:'',loadChildren:'./welcome/welcome.module#WelcomeModule'},
   {path:'profile',loadChildren:'./profile/profile.module#ProfileModule'},
   {path:':lastName.:firstName.:fromCity/allactivity',loadChildren:
-    './all-activity/all-activity.module#AllActivityModule'},
-  {path:'search',component:SearchComponent}
+    './all-activity/all-activity.module#AllActivityModule'}
 ];
 
 @NgModule({
