@@ -21,6 +21,7 @@ import {NgbModulesModule} from './shared/ngb-modules.module';
 import {environment} from '../environments/environment';
 import {SearchModule} from './search/search.module';
 import {WelcomeModule} from './welcome/welcome.module';
+import {AdsModule} from './ads/ads.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {WelcomeModule} from './welcome/welcome.module';
     AuthModule,
     SearchModule,
     WelcomeModule,
+    AdsModule,
     NgbModulesModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),

@@ -32,7 +32,9 @@
           </mat-autocomplete>
           <button mat-button type="submit"><i class="material-icons">search</i></button>
         </form>
-        <li class="nav-item"><div class="profileDiv mt-2"><a routerLink="/profile" class="nav-link">
+        <li class="nav-item"><div class="profileDiv mt-2"><a *ngIf="(profileState$|async)"
+          [routerLink]="[(authState$|async).lastName+'.'+(authState$|async).firstName+'.'+(profileState$|async).fromCity]"
+           class="nav-link">
           <span class="float-left profilePictSpan"><img *ngIf="(profileState$|async)" class="img-responsive"
             style="height:52px;width:52px;border-radius:50%;" [src]="(profileState$|async)?.profilePicture">
           </span>
@@ -41,9 +43,34 @@
         <li class="nav-item"><div class="welcomeDiv mt-2"><a routerLink="/" class="nav-link">
           <p class="mt-2 welcomeP">Accueil</p>
         </a></div></li>
-        <li class="nav-item"><div class="createDiv mt-2"><a routerLink="/" class="nav-link">
+        <li class="nav-item"><div class="createDiv mt-2 dropdown"><a routerLink="/"
+          class="nav-link dropdown-toggle" data-toggle="dropdown">
           <p class="mt-2 createP">Créer</p>
-        </a></div></li>
+        </a>
+        <div class="dropdown-menu">
+          <div class="dropdown-header"><p class="float-left">Créer</p></div>
+          <a class="dropdown-item" [routerLink]="['pages','creation']" [queryParams]="{ref_type:'universal_creation_hub'}">
+            <div class="d-inline float-left">
+            <span style="font-size:1.3em;color:dark-gray;"><i class="fas fa-flag"></i></span>
+            </div>
+            <div class="d-inline ml-1">
+              <div class="d-block pageHeaderDiv">Page</div>
+              <div class="d-block"><p>Communiquez et partagez avec vos clients ou fans</p></div>
+            </div>
+          </a>
+          <a class="dropdown-item" (click)="toAds()" style="cursor:pointer;">
+            <div class="d-inline float-left">
+            <span style="font-size:1.3em;color:dark-gray;"><i class="fas fa-flag"></i></span>
+            </div>
+            <div class="d-inline ml-1">
+              <div class="d-block adHeaderDiv">Publicité</div>
+              <div class="d-block"><p>Faîtes la promotion de votre entreprise, votre marque ou votre organisation</p>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div></li>
       </ul>
     </div>
     <div class="float-right">

@@ -9,7 +9,7 @@ a.editSearchesLink:hover{
   text-decoration: underline;
 }
 .nbBg{
-  background-color: rgb(66,103,178);
+  background-color: rgb(60,90,154);
 }
 .searchInput{
   background-color:white;
@@ -33,12 +33,18 @@ a.editSearchesLink:hover{
   border-right: 1px solid rgb(59,92,160);
 }
 div.profileDiv:hover{
-  background-color:rgb(59,92,160)!important;
+  background-color:rgb(60,66,154)!important;
 }
 .welcomeDiv{
   height:52px;
   border-right:1px solid rgb(59,92,160);
 }
 .welcomeP{
+  color:white;
+}
+.pageHeaderDiv{
+  font-weight: bold;
+}
+.createP{
   color:white;
 }

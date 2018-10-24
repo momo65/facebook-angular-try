@@ -1,51 +1,40 @@
 import {Injectable} from '@angular/core';
 import {HttpClient,HttpParams} from '@angular/common/Http';
+import {Store} from '@ngrx/store';
 import {Actions,Effect} from '@ngrx/effects';
-import {map,switchMap,catchError} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {map,switchMap,catchError,withLatestFrom} from 'rxjs/operators';
+import { AngularFireDatabase,AngularFireList} from 'angularfire2/database';
+import * as _ from "lodash";
 
 import * as coreActions from './core.actions';
 import {Search} from '../../shared/search.model';
 import * as coreHelpers from './core-helpers';
 import {Suggestion} from '../../shared/suggestion.model';
+import * as fromApp from '../../store/app.reducers';
 
 @Injectable()
 export class CoreEffects{
-  constructor(private actions$:Actions,private httpClient:HttpClient){}
-
+  accountsRef:AngularFireList<any>=null;
+  authsRef:AngularFireList<any>=null;
   suggestionsTypes:string[];
 
+  constructor(private actions$:Actions,private httpClient:HttpClient,private store:Store<fromApp.AppState>,
+    public db: AngularFireDatabase){
+      this.accountsRef=db.list('/accounts');
+      this.authsRef=db.list('/auths');
+  }
+
   @Effect()
-  doLoadSearches$=this.actions$.ofType(coreActions.DO_LOAD_SEARCHES).pipe(map(
-    (action:coreActions.DoLoadSearches)=>{
-      return action.payload;
-    }
+  doGetAccountNumber$=this.actions$.ofType(coreActions.DO_GET_ACCOUNT_NUMBER).pipe(withLatestFrom(
+    this.store.select('auth')
   ),switchMap(
-    (profileId)=>{
-      console.log(profileId);
-      let params = new HttpParams().set('profileId', profileId);
-      return this.httpClient.get<Search[]>("https://angularfacebookapp.firebaseio.com/searches.json",{params:params});
-      //add token with AuthInterceptor
+    ([action,authState])=>{
+      return this.getAccountNumber(authState.id);
     }
   ),map(
-    (searches:Search[])=>{
-      let propsearchesData=Object.keys(searches);
-      let searchesDataV=[];
-      for(let prop of propsearchesData){
-        searchesDataV.push(searches[prop]);
-      }
-      let searches2:Search[]=[];
-      let k=0;
-      for(let search of searchesDataV){
-        searches2.push(new Search(search.profileId,search.date,search.searchedTerm,search.visited));
-        k++;
-        if(k==8)break;
-      }
-      /*for(let recipe of recipes){
-        if(!recipe['ingredients']){
-          recipe['ingredients']=[];
-        }
-      }*/
-      return new coreActions.LoadSearches(searches2);
+    (accountNumber)=>{
+      return new coreActions.SetAccountNumber(accountNumber);
     }
   ),catchError(
     (error,X)=>{
@@ -53,6 +42,51 @@ export class CoreEffects{
       return X;
     }
   ));
+
+  getAccountNumber(id:string):Observable<number>{
+    return this.accountsRef.snapshotChanges().pipe(map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    }),map(
+      (accounts) => {
+        let key=_.findKey(accounts,function(a){return a.authId==id});
+        return +key;
+      }
+    ));
+  }
+
+  @Effect()
+  doLoadSearches$=this.actions$.ofType(coreActions.DO_LOAD_SEARCHES).pipe(withLatestFrom(
+    this.store.select('auth')
+  ),switchMap(
+    ([action,authState])=>{
+      return this.getSearches(authState.id);
+    }
+  ),map(
+    (searches:Search[])=>{
+      console.log(searches);
+      return new coreActions.LoadSearches(searches);
+    }
+  ),catchError(
+    (error,X)=>{
+      console.log(error);
+      return X;
+    }
+  ));
+
+  getSearches(id:string):Observable<number>{
+    return this.authsRef.snapshotChanges().pipe(map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    }),map(
+      (auths) => {
+        let auth=_.find(auths,function(au){return au.id==id});
+        return auth;
+      }
+    ),map(
+      (auth)=>{
+        return _.slice(_.values(auth.searches),0,8);//the first 8 searches
+      }
+    ));
+  }
 
   @Effect()
   doLoadSuggestions$=this.actions$.ofType(coreActions.DO_LOAD_SUGGESTIONS).pipe(map(

@@ -6,9 +6,10 @@ import {WelcomeComponent} from './welcome/welcome.component';
 
 const appRoutes:Routes=[
   {path:'',loadChildren:'./welcome/welcome.module#WelcomeModule'},
-  {path:'profile',loadChildren:'./profile/profile.module#ProfileModule'},
+  {path:':lastName.:firstName.:fromCity',loadChildren:'./profile/profile.module#ProfileModule'},
   {path:':lastName.:firstName.:fromCity/allactivity',loadChildren:
-    './all-activity/all-activity.module#AllActivityModule'}
+    './all-activity/all-activity.module#AllActivityModule'},
+  {path:'adsmanager',loadChildren:'./ads/ads.module#AdsModule'}
 ];
 
 @NgModule({

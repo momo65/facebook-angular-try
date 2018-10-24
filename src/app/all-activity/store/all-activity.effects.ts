@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions,Effect} from '@ngrx/effects';
-import {HttpClient,HttpParams} from '@angular/common/http';
 import {map,catchError} from 'rxjs/operators';
 import { AngularFireDatabase,AngularFireList} from 'angularfire2/database';
-import {Observable} from 'rxjs';
 import * as _ from "lodash";
 
 import * as aAActions from './all-activity.actions';
@@ -12,7 +10,7 @@ import * as aAActions from './all-activity.actions';
 export class AllActivityEffects{
   searchesRef:AngularFireList<any>=null;
 
-  constructor(private actions$:Actions,private httpClient:HttpClient,public db: AngularFireDatabase){
+  constructor(private actions$:Actions,public db: AngularFireDatabase){
     this.searchesRef=db.list('/searches');
   }
 

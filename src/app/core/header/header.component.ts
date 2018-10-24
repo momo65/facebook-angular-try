@@ -20,10 +20,19 @@ export class HeaderComponent implements OnInit{
   searchForm:FormGroup;
   coreState$:Observable<fromCore.State>;
   authState$:Observable<fromAuth.State>;
-  profileState:Observable<fromProfile.State>;
+  profileState$:Observable<fromProfile.State>;
   type:string;//to define which: searches or suggestions we're gonna put in the search input.
+  //nextActNum:number;
 
   constructor(private router:Router,private store:Store<fromProfile.FeatureState>) {}
+
+  toAds(){
+    this.store.select('core').pipe(take(1)).subscribe(
+      (coreState)=>{
+        this.router.navigate(['adsmanager'],{queryParams:{act:coreState.accountNumber,filter_set:''}});//,'creation'
+      }
+    );
+  }
 
   editCurrentSearches(){
     console.log("we r in");
@@ -53,7 +62,7 @@ export class HeaderComponent implements OnInit{
     }
   }
 
-  searchFor(term:string,k:number){
+  searchFor(term:string,k:number){ // iforgot for what i did put k here ;p
     let formattedTerm;
     if(term==='' && k===-1){
       formattedTerm=this.searchForm.value.searchTerm.trim().replace(/\/|\\|%|,|=| /g,

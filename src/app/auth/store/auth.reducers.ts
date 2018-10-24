@@ -12,12 +12,12 @@ export interface State{
 }
 
 const initialState:State={
-  firstName:'momo',
-  lastName:'edsa77a77',
-  id:"is.pf@gmail.com",
+  firstName:'mdoei',
+  lastName:'oidpgi',
+  id:"jf.lh@gmail.com",
   password:null,
   birthDate:null,
-  sex:null,
+  sex:'female',
   authenticated:false,
   token:null
 };
