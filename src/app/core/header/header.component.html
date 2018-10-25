@@ -9,12 +9,12 @@
         <form [formGroup]="searchForm" class="form-inline" (ngSubmit)="searchFor('',-1)">
           <mat-form-field class="searchInput">
             <input type="text" matInput [formControlName]="'searchTerm'" [matAutocomplete]="auto"
-              (focus)="loadSearches()" (blur)="unloadAutocomplete()" class="searchInput"/>
+              (focus)="loadSearches()" (blur)="unloadAutocomplete()" (keyup)="tagForSuggestions()" class="searchInput"/>
           </mat-form-field>
           <mat-autocomplete #auto="matAutocomplete">
-            <div *ngIf="type==='searches'">
-              <mat-option>
-                <p class="searchInitialOption">VOS RECHERCHES <a class="float-right editSearchesLink"
+            <div *ngIf="type==='searches'" class="no-gutters">
+              <mat-option class="no-gutters">
+                <p class="searchInitialOption no-gutters">VOS RECHERCHES <a class="float-right editSearchesLink no-gutters"
                     routerLinkActive="active" (click)="editCurrentSearches()">
                       MODIFIER</a></p>
               </mat-option>

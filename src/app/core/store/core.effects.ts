@@ -73,7 +73,7 @@ export class CoreEffects{
     }
   ));
 
-  getSearches(id:string):Observable<number>{
+  getSearches(id:string):Observable<Search[]>{
     return this.authsRef.snapshotChanges().pipe(map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     }),map(
@@ -83,7 +83,7 @@ export class CoreEffects{
       }
     ),map(
       (auth)=>{
-        return _.slice(_.values(auth.searches),0,8);//the first 8 searches
+        return _.reverse(_.takeRight(_.values(auth.searches),8));//the last 8 searches ordered by the latest in date
       }
     ));
   }

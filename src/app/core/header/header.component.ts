@@ -23,8 +23,13 @@ export class HeaderComponent implements OnInit{
   profileState$:Observable<fromProfile.State>;
   type:string;//to define which: searches or suggestions we're gonna put in the search input.
   //nextActNum:number;
+  switchToSuggestions:boolean=false;
 
   constructor(private router:Router,private store:Store<fromProfile.FeatureState>) {}
+
+  tagForSuggestions(){
+    this.switchToSuggestions=true;
+  }
 
   toAds(){
     this.store.select('core').pipe(take(1)).subscribe(
@@ -56,26 +61,26 @@ export class HeaderComponent implements OnInit{
 
   loadSearches(){
     if(this.searchForm.value.searchTerm!="" && this.searchForm.value.searchTerm!=null){
-      this.type="suggestions";
+      this.type="suggestions";//maybe call for LoadSuggestions here (after we select a search or a suggestion)
     }else{
       this.type="searches";
     }
   }
 
-  searchFor(term:string,k:number){ // iforgot for what i did put k here ;p
+  searchFor(term:string,k:number){ // i forgot for what i did put k here ;p
+    console.log(term);
     let formattedTerm;
     if(term==='' && k===-1){
       formattedTerm=this.searchForm.value.searchTerm.trim().replace(/\/|\\|%|,|=| /g,
         function(sep){
           if(sep=="/"){return "%2F";}else if(sep=="\\"){return "%5C";}else if(sep=="%"){return "%25";}
-          else if(sep==","){return "%2C";}else if(sep=="="){return "%3D";}
+          else if(sep==","){return "%2C";}else if(sep=="="){return "%3D";}else if(sep==" "){return "+";}
         });
-
     }else{
       formattedTerm=term.trim().replace(/\/|\\|%|,|=| /g,
         function(sep){
           if(sep=="/"){return "%2F";}else if(sep=="\\"){return "%5C";}else if(sep=="%"){return "%25";}
-          else if(sep==","){return "%2C";}else if(sep=="="){return "%3D";}
+          else if(sep==","){return "%2C";}else if(sep=="="){return "%3D";}else if(sep==" "){return "+";}
         });
     }
     this.router.navigate(['search','str',formattedTerm,'keywords_search']);
@@ -96,9 +101,9 @@ export class HeaderComponent implements OnInit{
     this.searchForm.get('searchTerm').valueChanges.pipe(distinctUntilChanged()).subscribe(
       (searchT)=>{
         if(searchT=="" || searchT==null || searchT==undefined){
+          this.switchToSuggestions=false;
           this.type="searches";
-        }else{
-          console.log(searchT);
+        }else if(this.switchToSuggestions===true){
           this.store.dispatch(new coreActions.DoLoadSuggestions(searchT));
           this.type="suggestions";
         }

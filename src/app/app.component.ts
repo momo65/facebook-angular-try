@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
 
     this.store.select('auth').pipe(take(1)).subscribe(
       (authState)=>{
-        this.store.dispatch(new coreActions.DoLoadSearches();
+        this.store.dispatch(new coreActions.DoLoadSearches());
       }
     );
   }
