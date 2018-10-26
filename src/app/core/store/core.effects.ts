@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {HttpClient,HttpParams} from '@angular/common/Http';
 import {Store} from '@ngrx/store';
 import {Actions,Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs';
@@ -19,7 +18,7 @@ export class CoreEffects{
   authsRef:AngularFireList<any>=null;
   suggestionsTypes:string[];
 
-  constructor(private actions$:Actions,private httpClient:HttpClient,private store:Store<fromApp.AppState>,
+  constructor(private actions$:Actions,private store:Store<fromApp.AppState>,
     public db: AngularFireDatabase){
       this.accountsRef=db.list('/accounts');
       this.authsRef=db.list('/auths');
@@ -63,7 +62,6 @@ export class CoreEffects{
     }
   ),map(
     (searches:Search[])=>{
-      console.log(searches);
       return new coreActions.LoadSearches(searches);
     }
   ),catchError(
@@ -88,7 +86,7 @@ export class CoreEffects{
     ));
   }
 
-  @Effect()
+  /*@Effect()
   doLoadSuggestions$=this.actions$.ofType(coreActions.DO_LOAD_SUGGESTIONS).pipe(map(
     (action:coreActions.DoLoadSuggestions)=>{
       this.suggestionsTypes=coreHelpers.initializeST();
@@ -100,11 +98,6 @@ export class CoreEffects{
     }
   ),map(
     (suggestions)=>{
-      /*for(let recipe of recipes){
-        if(!recipe['ingredients']){
-          recipe['ingredients']=[];
-        }
-      }*/
       return new coreActions.LoadSuggestions(suggestions);
     }
   ),catchError(
@@ -112,5 +105,5 @@ export class CoreEffects{
       console.log(error);
       return X;
     }
-  ));
+  ));*/
 }

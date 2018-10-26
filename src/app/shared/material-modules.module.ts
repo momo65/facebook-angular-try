@@ -1,17 +1,19 @@
 import {NgModule} from '@angular/core';
-import {MatButtonModule, MatInputModule} from '@angular/material';
+import {MatButtonModule, MatInputModule,MatRadioModule} from '@angular/material';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   imports:[
     MatButtonModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatRadioModule
   ],
   exports:[
     MatButtonModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatRadioModule
   ]
 })
 export class MaterialModulesModule{}

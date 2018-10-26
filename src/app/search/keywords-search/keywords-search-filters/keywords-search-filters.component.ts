@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Source} from '../../../shared/source.model';
 
 @Component({
   selector: 'app-keywords-search-filters',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./keywords-search-filters.component.css']
 })
 export class KeywordsSearchFiltersComponent implements OnInit {
+  chooseSourceInp:boolean=false;
+  selectedSource:Source;
 
   constructor() { }
 

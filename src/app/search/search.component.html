@@ -1,5 +1,38 @@
 <div class="row no-gutters container-fluid navLinksDiv">
   <div class="col-xs-1 col-md-1 col-sm-1 ml-1">
-    <!--<a [routerLink]="['']"></a> we could maybe declare a variable to know how much we got to jump back in the routerLink-->
+    <a [routerLink]="['/','search',keyWords,'keywords_search']" activatedRouterLink="rLinkActive">Tous</a>
+  </div>
+  <div class="col-xs-1 col-md-1 col-sm-1 ml-1">
+    <a [routerLink]="['/','search','posts']" [queryParams]="{q:keyWords}" activatedRouterLink="rLinkActive">Publications</a>
+  </div>
+  <div class="col-xs-1 col-md-1 col-sm-1 ml-1">
+    <a [routerLink]="['/','search','people']" [queryParams]="{q:keyWords}" activatedRouterLink="rLinkActive">Personnes</a>
+  </div>
+  <div class="col-xs-1 col-md-1 col-sm-1 ml-1">
+    <a [routerLink]="['/','search','photos']" [queryParams]="{q:keyWords}" activatedRouterLink="rLinkActive">Photos</a>
+  </div>
+  <div class="col-xs-1 col-md-1 col-sm-1 ml-1">
+    <a [routerLink]="['/','search','videos']" [queryParams]="{q:keyWords}" activatedRouterLink="rLinkActive">Vidéos</a>
+  </div>
+  <div class="col-xs-1 col-md-1 col-sm-1 ml-1">
+    <a [routerLink]="['/','search','pages']" [queryParams]="{q:keyWords}" activatedRouterLink="rLinkActive">Pages</a>
+  </div>
+  <div class="col-xs-1 col-md-1 col-sm-1 ml-1">
+    <a [routerLink]="['/','search','str',keyWords,'keywords_places']" activatedRouterLink="rLinkActive">Lieux</a>
+  </div>
+  <div class="col-xs-1 col-md-1 col-sm-1 ml-1">
+    <a [routerLink]="['/','search','groups']" [queryParams]="{q:keyWords}" activatedRouterLink="rLinkActive">Groupes</a>
+  </div>
+  <div class="col-xs-1 col-md-1 col-sm-1 ml-1">
+    <a [routerLink]="['/','search','apps']" [queryParams]="{q:keyWords}" activatedRouterLink="rLinkActive">Applications</a>
+  </div>
+  <div class="col-xs-1 col-md-1 col-sm-1 ml-1">
+    <a [routerLink]="['/','search','events']" [queryParams]="{q:keyWords}" activatedRouterLink="rLinkActive">Evénements</a>
+  </div>
+</div>
+
+<div class="row no-gutters mt-4">
+  <div class="col-xs-12 col-sm-12 col-md-12">
+    <router-outlet></router-outlet>
   </div>
 </div>

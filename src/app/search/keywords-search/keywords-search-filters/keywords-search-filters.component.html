@@ -1,3 +1,44 @@
-<p>
-  keywords-search-filters works!
-</p>
+<div class="d-block">
+  <p class="titleP">Filtrer les résultats</p>
+</div>
+<div class="d-block">
+  <div class="d-block">
+    <label class="labelPubs">PUBLICATIONS DE</label>
+  </div>
+  <div class="d-block">
+    <mat-radio-group>
+      <mat-radio-button class="d-block" value="everybody" checked="true">Tout le monde</mat-radio-button>
+      <mat-radio-button class="d-block" value="you">Vous</mat-radio-button>
+      <mat-radio-button class="d-block" value="friends">Vos amis</mat-radio-button>
+      <mat-radio-button class="d-block" value="yoGroups">Vos groupes</mat-radio-button>
+      <mat-radio-button class="d-block" *ngIf="selectedSource" ([ngModel])="selectedSource" [value]="selectedSource.name">
+        <div class="d-inline">
+          <span class="d-inline"><img [src]="selectedSource.profilePicture" class="d-inline img-responsive"
+            style="max-height:10px;max-width:10px" [alt]="selectedSource.name+'\'s picture'" />
+          </span>
+          <p class="d-inline">{{ selectedSource.name }}</p>
+        </div>
+      </mat-radio-button>
+    </mat-radio-group>
+    <div class="d-block" *ngIf="!chooseSourceInp">
+      <span style="font-size:1.3em;color:gray;"><i class="material-icons">add_circle_outline</i></span>
+    </div>
+    <div class="d-block" *ngIf="chooseSourceInp">
+      <mat-form-field class="chooseSourceInp">
+        <input type="text" matInput [matAutocomplete]="auto"
+          (focus)="rechargeSources()" (blur)="unloadAutocomplete()" (keyup)="loadSources()" class="sourcesInp"/>
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let source of (searchState$|async).sources;let j=index"
+          [value]="source.name" (click)=addSource(source.name,source.profilePicture,j)>
+          <div class="d-inline">
+            <span class="d-inline"><img [src]="source.profilePicture" class="d-inline img-responsive"
+              style="max-height:12px;max-width:12px" [alt]="source.name+'\'s picture'" />
+            </span>
+            <p class="d-inline">{{ source.name }}</p>
+          </div>
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+  </div>
+</div>

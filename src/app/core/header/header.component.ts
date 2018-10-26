@@ -67,8 +67,7 @@ export class HeaderComponent implements OnInit{
     }
   }
 
-  searchFor(term:string,k:number){ // i forgot for what i did put k here ;p
-    console.log(term);
+  searchFor(term:string,k:number){ // i forgot for what i did put k here ;p maybe only to differentiate between case 1 & the rest
     let formattedTerm;
     if(term==='' && k===-1){
       formattedTerm=this.searchForm.value.searchTerm.trim().replace(/\/|\\|%|,|=| /g,

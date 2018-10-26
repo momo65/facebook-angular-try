@@ -10,7 +10,7 @@ import { KeywordsSearchFiltersComponent } from './keywords-search/keywords-searc
   declarations:[
     SearchComponent,
     KeywordsSearchComponent,
-    KeywordsSearchFiltersComponent
+    KeywordsSearchFiltersComponent,
   ],
   imports:[
     SharedModule,
