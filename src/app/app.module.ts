@@ -22,6 +22,7 @@ import {environment} from '../environments/environment';
 import {SearchModule} from './search/search.module';
 import {WelcomeModule} from './welcome/welcome.module';
 import {AdsModule} from './ads/ads.module';
+import {SearchEffects} from './search/store/search.effects';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import {AdsModule} from './ads/ads.module';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([CoreEffects,AuthEffects])
+    EffectsModule.forRoot([CoreEffects,AuthEffects,SearchEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

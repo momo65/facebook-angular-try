@@ -7,35 +7,95 @@
   </div>
   <div class="d-block">
     <mat-radio-group>
-      <mat-radio-button class="d-block" value="everybody" checked="true">Tout le monde</mat-radio-button>
+      <mat-radio-button class="d-block" value="everybody" [checked]="checkedFS">Tout le monde</mat-radio-button>
       <mat-radio-button class="d-block" value="you">Vous</mat-radio-button>
       <mat-radio-button class="d-block" value="friends">Vos amis</mat-radio-button>
       <mat-radio-button class="d-block" value="yoGroups">Vos groupes</mat-radio-button>
-      <mat-radio-button class="d-block" *ngIf="selectedSource" ([ngModel])="selectedSource" [value]="selectedSource.name">
+      <mat-radio-button class="d-block" *ngIf="(searchState$|async).selectedSourceIndex" [checked]="checkedSS"
+        [value]="(searchState$|async).sources[(searchState$|async).selectedSourceIndex].name">
         <div class="d-inline">
-          <span class="d-inline"><img [src]="selectedSource.profilePicture" class="d-inline img-responsive"
-            style="max-height:10px;max-width:10px" [alt]="selectedSource.name+'\'s picture'" />
+          <span class="d-inline">
+            <img [src]="(searchState$|async).sources[(searchState$|async).selectedSourceIndex].profilePicture"
+            class="d-inline img-responsive" style="max-height:10px;max-width:10px"
+            [alt]="(searchState$|async).sources[(searchState$|async).selectedSourceIndex].name+'\'s picture'" />
           </span>
-          <p class="d-inline">{{ selectedSource.name }}</p>
+          <p class="d-inline">
+            {{ (searchState$|async).sources[(searchState$|async).selectedSourceIndex].name }}</p>
         </div>
       </mat-radio-button>
     </mat-radio-group>
-    <div class="d-block" *ngIf="!chooseSourceInp">
-      <span style="font-size:1.3em;color:gray;"><i class="material-icons">add_circle_outline</i></span>
+    <div class="d-block" *ngIf="!chooseSourceInp" (click)="displaySInp()" style="cursor:pointer;">
+      <span style="font-size:1.3em;color:gray;" class="d-inline"><i class="material-icons">add_circle_outline</i></span>
+      <p class="d-inline labelP">Choisissez une source...</p>
     </div>
     <div class="d-block" *ngIf="chooseSourceInp">
       <mat-form-field class="chooseSourceInp">
-        <input type="text" matInput [matAutocomplete]="auto"
-          (focus)="rechargeSources()" (blur)="unloadAutocomplete()" (keyup)="loadSources()" class="sourcesInp"/>
+        <input type="text" matInput [matAutocomplete]="auto" [(ngModel)]="sourceTerm"
+          (focus)="rechargeSources()" (blur)="unloadSourcesAuto()" (keyup)="loadSources()" class="sourcesInp"/>
       </mat-form-field>
-      <mat-autocomplete #auto="matAutocomplete">
+      <mat-autocomplete #auto="matAutocomplete" *ngIf="showSourcesAuto">
         <mat-option *ngFor="let source of (searchState$|async).sources;let j=index"
-          [value]="source.name" (click)=addSource(source.name,source.profilePicture,j)>
+          [value]="source.name" (click)="addSource(j)">
           <div class="d-inline">
             <span class="d-inline"><img [src]="source.profilePicture" class="d-inline img-responsive"
               style="max-height:12px;max-width:12px" [alt]="source.name+'\'s picture'" />
             </span>
             <p class="d-inline">{{ source.name }}</p>
+          </div>
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+  </div>
+  <br />
+  <div class="d-block">
+    <label class="labelPubType">Type de publication</label>
+  </div>
+  <div class="d-block">
+    <mat-radio-group>
+      <mat-radio-button class="d-block" value="allPubs" checked="true">Toutes les publications</mat-radio-button>
+      <mat-radio-button class="d-block" value="pubsYouSaw">Publications que vous avez vues</mat-radio-button>
+    </mat-radio-group>
+  </div>
+</div>
+<br/>
+<div class="d-block">
+  <div class="d-block">
+    <label class="labelPubsGroup">PUBLIÉES DANS LE GROUPE</label>
+  </div>
+  <div class="d-block">
+    <mat-radio-group>
+      <mat-radio-button class="d-block" value="anyGroup" [checked]="checkedFG">N'importe quel groupe</mat-radio-button>
+      <mat-radio-button class="d-block" value="yourGroups">Vos groupes</mat-radio-button>
+      <mat-radio-button class="d-block" *ngIf="(searchState$|async).selectedGroupIndex" [checked]="checkedSG"
+        [value]="(searchState$|async).groups[(searchState$|async).selectedGroupIndex].groupName">
+        <div class="d-inline">
+          <span class="d-inline">
+            <img [src]="(searchState$|async).groups[(searchState$|async).selectedGroupIndex].profilePhoto"
+              class="d-inline img-responsive" style="max-height:10px;max-width:10px"
+              [alt]="(searchState$|async).groups[(searchState$|async).selectedGroupIndex].groupName+'\'s picture'" />
+          </span>
+          <p class="d-inline">
+            {{ (searchState$|async).groups[(searchState$|async).selectedGroupIndex].groupName }}</p>
+        </div>
+      </mat-radio-button>
+    </mat-radio-group>
+    <div class="d-block" *ngIf="!chooseGroupInp" (click)="displayGInp()">
+      <span style="font-size:1.3em;color:gray;" class="d-inline"><i class="material-icons">add_circle_outline</i></span>
+      <p class="d-inline labelGroupP">Choisissez un groupe...</p>
+    </div>
+    <div class="d-block" *ngIf="chooseGroupInp">
+      <mat-form-field class="chooseGroupInp">
+        <input type="text" matInput [matAutocomplete]="autoGroup" [(ngModel)]="groupTerm"
+          (focus)="rechargeGroups()" (blur)="unloadGroupsAuto()" (keyup)="loadGroups()" class="groupsInp"/>
+      </mat-form-field>
+      <mat-autocomplete #autoGroup="matAutocomplete">
+        <mat-option *ngFor="let group of (searchState$|async).groups;let k=index"
+          [value]="group.groupName" (click)="addGroup(k)">
+          <div class="d-inline">
+            <span class="d-inline"><img [src]="group.profilePhoto" class="d-inline img-responsive"
+              style="max-height:12px;max-width:12px" [alt]="group.groupName+'\'s picture'" />
+            </span>
+            <p class="d-inline">{{ group.groupName }}</p>
           </div>
         </mat-option>
       </mat-autocomplete>

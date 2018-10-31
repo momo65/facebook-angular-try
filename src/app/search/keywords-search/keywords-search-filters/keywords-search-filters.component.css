@@ -4,3 +4,24 @@
 .labelPubs{
   font-size:15px;
 }
+.labelP{
+  color:blue;
+  font-size:13px;
+  position:relative;
+  bottom:8px;
+  left:2%;
+}
+.chooseSourceInp{
+  border:1px solid grey;
+  height:25px;
+}
+.labelPubType{
+  font-size: 14px;
+}
+.labelGroupP{
+  color:blue;
+  font-size:13px;
+  position:relative;
+  bottom:8px;
+  left:2%;
+}

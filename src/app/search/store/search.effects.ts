@@ -11,15 +11,19 @@ import {Source} from '../../shared/source.model';
 
 export class SearchEffects{
   authsRef:AngularFireList<any>=null;
+  pagesRef:AngularFireList<any>=null;
+  groupsRef:AngularFireList<any>=null;
 
   constructor(private actions$:Actions,public db: AngularFireDatabase){
     this.authsRef=db.list('/auths');
+    this.pagesRef=db.list('/auths/pages');
+    this.groupsRef=db.list('/auths/groups');
   }
 
   @Effect()
-  doLoadSources$=this.actions.ofType(searchActions.DO_LOAD_SEARCHES).pipe(map(
-    (action:searchActions.DoLoadSearches)=>{
-      return action.payload;
+  doLoadSources$=this.actions$.ofType(searchActions.DO_LOAD_SOURCES).pipe(map(
+    (action:searchActions.DoLoadSources)=>{
+      return action.payload; //the searched term
     }
   ),switchMap(
     (sourceTerm:string)=>{
@@ -27,12 +31,12 @@ export class SearchEffects{
     }
   ));
 
-  getSources(term:string):Observable<Source[]>{
+  getSources(term:string):Observable<number>{//Source[]
     return this.authsRef.snapshotChanges().pipe(map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     }),map(
       (auths) => {
-        _.findKey(auths,function(au){return au.authId==id});
+        let key=_.findKey(auths,function(au){return au.authId==term});
         return +key;
       }
     ));
